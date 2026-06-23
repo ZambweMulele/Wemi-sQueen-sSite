@@ -1,0 +1,494 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>House of SK | Premium Metropolitan Boutique</title>
+    <link rel="icon" href="https://fav.farm/✨" />
+    
+    <!-- Fonts: Minimal & Clean -> Inter + Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <!-- Animation Libraries -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+
+    <style>
+        :root {
+            --brand: #B5697A;
+            --brand-light: #D9A7B3;
+            --brand-dark: #8E4D5B;
+            --bg: #FAF9F8;
+            --surface: #FFFFFF;
+            --text: #1A1A1A;
+            --text-muted: #666666;
+            --border: #E5E5E5;
+            --max-width: 1440px;
+            --section-padding: 120px 20px;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg);
+            color: var(--text);
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
+            overflow-x: hidden;
+        }
+
+        /* Typography */
+        h1, h2, h3, h4 {
+            font-weight: 700;
+            letter-spacing: -0.03em;
+            line-height: 1.1;
+        }
+
+        h1 { font-size: clamp(3rem, 8vw, 5.5rem); }
+        h2 { font-size: clamp(2.2rem, 5vw, 3.5rem); margin-bottom: 1.5rem; }
+        p { font-size: 1.1rem; color: var(--text-muted); }
+
+        /* Utility */
+        .container { max-width: var(--max-width); margin: 0 auto; padding: 0 40px; }
+        .brand-text { color: var(--brand); }
+
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(250, 249, 248, 0.9);
+            backdrop-filter: blur(12px);
+            z-index: 1000;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .nav-container {
+            height: 90px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-weight: 800;
+            font-size: 1.4rem;
+            color: var(--text);
+            text-decoration: none;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 40px;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--text);
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            font-weight: 600;
+            transition: color 0.3s ease;
+        }
+
+        .nav-links a:hover { color: var(--brand); }
+
+        /* Delivery Banner */
+        .delivery-banner {
+            background: var(--brand);
+            color: white;
+            padding: 12px;
+            text-align: center;
+            font-weight: 700;
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            position: sticky;
+            top: 90px;
+            z-index: 999;
+        }
+
+        /* Hero Section */
+        .hero {
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            background: linear-gradient(rgba(250, 249, 248, 0.8), rgba(250, 249, 248, 0.8)), 
+                        url('https://images.unsplash.com/photo-1490481651871-ab68de25d43d?auto=format&fit=crop&q=80&w=2000') center/cover no-repeat;
+            padding-top: 90px;
+        }
+
+        .hero-tag {
+            color: var(--brand);
+            text-transform: uppercase;
+            letter-spacing: 5px;
+            font-size: 0.85rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            display: block;
+        }
+
+        .cta-button {
+            display: inline-block;
+            padding: 20px 45px;
+            background: var(--text);
+            color: white;
+            text-decoration: none;
+            margin-top: 2.5rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            transition: transform 0.3s ease, background 0.3s ease;
+        }
+
+        .cta-button:hover {
+            background: var(--brand);
+            transform: translateY(-3px);
+        }
+
+        /* Gallery Section */
+        .section-header {
+            max-width: 700px;
+            margin-bottom: 60px;
+        }
+
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(12, 1fr);
+            gap: 30px;
+        }
+
+        .gallery-item {
+            grid-column: span 4;
+            transition: transform 0.5s ease;
+        }
+
+        .gallery-item:nth-child(2) { grid-column: span 8; }
+
+        .img-container {
+            aspect-ratio: 4/5;
+            overflow: hidden;
+            background: #eee;
+            margin-bottom: 20px;
+        }
+
+        .img-container img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.8s ease;
+        }
+
+        .gallery-item:hover img { transform: scale(1.05); }
+
+        /* Pricing Section */
+        .pricing-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+            margin-top: 50px;
+        }
+
+        .price-card {
+            background: var(--surface);
+            padding: 50px 40px;
+            border: 1px solid var(--border);
+            display: flex;
+            flex-direction: column;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .price-card.featured { border-color: var(--brand); }
+        .price-card.featured::after {
+            content: "POPULAR";
+            position: absolute;
+            top: 20px;
+            right: -30px;
+            background: var(--brand);
+            color: white;
+            font-size: 0.7rem;
+            font-weight: 800;
+            padding: 5px 40px;
+            transform: rotate(45deg);
+        }
+
+        .price-card h3 { margin-bottom: 10px; color: var(--brand); }
+        .price-value { font-size: 2.2rem; font-weight: 800; margin: 25px 0; }
+        .price-features { list-style: none; margin-bottom: 30px; }
+        .price-features li { margin-bottom: 12px; color: var(--text-muted); font-size: 0.95rem; display: flex; align-items: center; gap: 10px; }
+        .price-features li::before { content: "—"; color: var(--brand); font-weight: bold; }
+
+        /* FAQ Section */
+        .faq-layout {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 80px;
+        }
+
+        .faq-item {
+            padding: 30px 0;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .faq-item h3 { font-size: 1.2rem; margin-bottom: 15px; }
+
+        /* Contact Section */
+        .contact-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 100px;
+            background: var(--text);
+            color: var(--surface);
+            padding: 80px;
+        }
+
+        .contact-info-block { margin-bottom: 50px; }
+        .contact-info-block h4 { color: var(--brand-light); text-transform: uppercase; font-size: 0.8rem; letter-spacing: 2px; margin-bottom: 15px; }
+        .contact-info-block p { color: #AAA; font-size: 1.3rem; font-weight: 500; }
+
+        /* Responsive */
+        @media (max-width: 1440px) { .container { max-width: 1200px; } }
+
+        @media (max-width: 1024px) {
+            .gallery-item, .gallery-item:nth-child(2) { grid-column: span 6; }
+            .pricing-grid { grid-template-columns: 1fr; }
+            .faq-layout { grid-template-columns: 1fr; gap: 40px; }
+            .contact-grid { grid-template-columns: 1fr; padding: 60px 40px; gap: 60px; }
+        }
+
+        @media (max-width: 768px) {
+            .nav-links { display: none; }
+            .container { padding: 0 24px; }
+            section { padding: 80px 0; }
+            h1 { font-size: 3.5rem; }
+        }
+
+        @media (max-width: 375px) {
+            h1 { font-size: 2.8rem; }
+            .gallery-item { grid-column: span 12 !important; }
+            .contact-grid { padding: 40px 24px; }
+        }
+    </style>
+</head>
+<body>
+
+    <nav>
+        <div class="container nav-container">
+            <a href="#" class="logo">House of SK</a>
+            <div class="nav-links">
+                <a href="#gallery">Collection</a>
+                <a href="#pricing">Services</a>
+                <a href="#faq">FAQ</a>
+                <a href="#contact">Visit Us</a>
+            </div>
+        </div>
+    </nav>
+
+    <div class="delivery-banner">✨ We Deliver Nationwide — Shop Online or In-Store</div>
+
+    <header class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <span class="hero-tag">Northmead's Premium Boutique</span>
+                <h1>Effortless <br><span class="brand-text">Sophistication.</span></h1>
+                <p style="max-width: 600px; margin-top: 20px;">Premium tailoring and versatile designs for the modern woman. From stylish two-piece sets to elegant evening gowns, House of SK defines metropolitan chic.</p>
+                <a href="#gallery" class="cta-button">Browse Collection</a>
+            </div>
+        </div>
+    </header>
+
+    <section id="gallery" class="container" style="padding-top: 120px; padding-bottom: 120px;">
+        <div class="section-header">
+            <span class="hero-tag">Our Eye</span>
+            <h2>Curated Elegance</h2>
+            <p>Specializing in high-quality women's apparel including modern suiting and contemporary wear that transitions seamlessly from day to night.</p>
+        </div>
+        <div class="gallery-grid">
+            <div class="gallery-card gallery-item">
+                <div class="img-container">
+                    <img src="https://images.unsplash.com/photo-1595777457583-95e059d581b8?auto=format&fit=crop&q=80&w=800" alt="Evening Gown">
+                </div>
+                <h3>The Gala Series</h3>
+                <p>Sophisticated silhouettes for your most exclusive events.</p>
+            </div>
+            <div class="gallery-card gallery-item">
+                <div class="img-container">
+                    <img src="https://images.unsplash.com/photo-1585487000160-6ebcfceb0d03?auto=format&fit=crop&q=80&w=1200" alt="Modern Suiting">
+                </div>
+                <h3>Modern Tailoring</h3>
+                <p>Sharp, empowered suiting for the contemporary business leader.</p>
+            </div>
+            <div class="gallery-card gallery-item">
+                <div class="img-container">
+                    <img src="https://images.unsplash.com/photo-1515372039744-b8f02a3ae446?auto=format&fit=crop&q=80&w=800" alt="Two-Piece Set">
+                </div>
+                <h3>The Urban Set</h3>
+                <p>Chic two-piece ensembles designed for versatile city living.</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="pricing" style="background-color: white; padding: 120px 0;">
+        <div class="container">
+            <div class="section-header">
+                <span class="hero-tag">Selection</span>
+                <h2>Boutique Tiers</h2>
+            </div>
+            <div class="pricing-grid">
+                <div class="price-card">
+                    <span class="hero-tag" style="font-size: 0.7rem;">Essential</span>
+                    <h3>Contemporary</h3>
+                    <div class="price-value">K850+</div>
+                    <ul class="price-features">
+                        <li>High-quality chic sets</li>
+                        <li>Versatile daywear</li>
+                        <li>Nationwide shipping available</li>
+                    </ul>
+                    <a href="#contact" class="cta-button" style="margin-top: auto; padding: 15px 30px;">Shop Now</a>
+                </div>
+                <div class="price-card featured">
+                    <span class="hero-tag" style="font-size: 0.7rem;">Signature</span>
+                    <h3>Tailored Suits</h3>
+                    <div class="price-value">K1,200+</div>
+                    <ul class="price-features">
+                        <li>Premium fabric selection</li>
+                        <li>Unique metropolitan tailoring</li>
+                        <li>In-store fitting consultation</li>
+                    </ul>
+                    <a href="#contact" class="cta-button" style="margin-top: auto; padding: 15px 30px;">Book Fitting</a>
+                </div>
+                <div class="price-card">
+                    <span class="hero-tag" style="font-size: 0.7rem;">Elite</span>
+                    <h3>Evening Gowns</h3>
+                    <div class="price-value">K1,850+</div>
+                    <ul class="price-features">
+                        <li>Exclusive high-end designs</li>
+                        <li>Luxury finishing</li>
+                        <li>Private atelier experience</li>
+                    </ul>
+                    <a href="#contact" class="cta-button" style="margin-top: auto; padding: 15px 30px;">Inquire</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="faq" class="container" style="padding-top: 120px; padding-bottom: 120px;">
+        <div class="faq-layout">
+            <div>
+                <span class="hero-tag">Assistance</span>
+                <h2>Common <br>Inquiries</h2>
+            </div>
+            <div>
+                <div class="faq-item">
+                    <h3>Where is your shop located?</h3>
+                    <p>House of SK is located in Northmead, Shop 199, directly opposite Vivom Investment in Lusaka.</p>
+                </div>
+                <div class="faq-item">
+                    <h3>Do you offer delivery across Zambia?</h3>
+                    <p>Yes, we deliver nationwide. Whether you're in the Copperbelt or Livingstone, we ensure your fashion reaches you safely.</p>
+                </div>
+                <div class="faq-item">
+                    <h3>What is your sizing range?</h3>
+                    <p>We pride ourselves on inclusive elegance. Our collections typically range from XS to XXL, with expert tailoring available to ensure the perfect fit.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="contact" class="container" style="padding: 0; overflow: hidden; border-radius: 4px;">
+        <div class="contact-grid">
+            <div>
+                <span class="hero-tag" style="color: var(--brand-light);">The Atelier</span>
+                <h2 style="color: white; margin-bottom: 40px;">Step Into Luxury</h2>
+                <div class="contact-info-block">
+                    <h4>The Boutique</h4>
+                    <p>Shop 199, Northmead<br>Opposite Vivom Investment<br>Lusaka, Zambia</p>
+                </div>
+                <div class="contact-info-block">
+                    <h4>Speak with Us</h4>
+                    <p>(+260) 965 971 654</p>
+                </div>
+                <div class="contact-info-block">
+                    <h4>Operating Hours</h4>
+                    <p>Mon - Sat: 09:00 - 18:00</p>
+                </div>
+            </div>
+            <div style="background: url('https://images.unsplash.com/photo-1558769132-cb1aea458c5e?auto=format&fit=crop&q=80&w=800') center/cover; min-height: 400px; filter: contrast(1.1) brightness(0.8);"></div>
+        </div>
+    </section>
+
+    <footer style="padding: 80px 0; text-align: center;">
+        <div class="container">
+            <span class="logo" style="margin-bottom: 20px; display: block;">House of SK</span>
+            <p style="font-size: 0.9rem; letter-spacing: 1px;">&copy; 2025 House of SK Boutique Store. All Rights Reserved.</p>
+            <p style="font-size: 0.75rem; margin-top: 10px; opacity: 0.6;">High-End Tailoring | Modern Suiting | Exclusive Contemporary Wear</p>
+        </div>
+    </footer>
+
+    <script>
+        gsap.registerPlugin(ScrollTrigger);
+
+        // Hero Animation
+        gsap.from(".hero-content > *", {
+            opacity: 0,
+            y: 40,
+            duration: 1,
+            stagger: 0.2,
+            ease: "power3.out",
+            delay: 0.5
+        });
+
+        // Global Section Reveal
+        const sections = document.querySelectorAll("section");
+        sections.forEach(section => {
+            gsap.from(section.querySelectorAll("h2, .hero-tag, .section-header p"), {
+                opacity: 0,
+                y: 30,
+                duration: 0.8,
+                scrollTrigger: {
+                    trigger: section,
+                    start: "top 80%",
+                    toggleActions: "play none none none"
+                }
+            });
+        });
+
+        // Grid & Card Staggers
+        const gridItems = [".gallery-card", ".price-card", ".faq-item", ".contact-info-block"];
+        gridItems.forEach(selector => {
+            gsap.from(selector, {
+                opacity: 0,
+                y: 30,
+                duration: 0.6,
+                stagger: 0.15,
+                scrollTrigger: {
+                    trigger: selector,
+                    start: "top 90%",
+                    toggleActions: "play none none none"
+                }
+            });
+        });
+
+        // Smooth Scroll
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+    </script>
+</body>
+</html>
