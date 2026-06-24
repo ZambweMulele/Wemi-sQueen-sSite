@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>House of SK | Premium Metropolitan Boutique</title>
+    <link rel="icon" href="https://fav.farm/✨" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    <style>
+        :root { --brand: #B5697A; --brand-light: #D9A7B3; --bg: #FAF9F8; --text: #1A1A1A; --border: #E5E5E5; --max-width: 1440px; }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Inter', sans-serif; background-color: var(--bg); color: var(--text); line-height: 1.6; overflow-x: hidden; }
+        h1, h2, h3 { font-weight: 700; letter-spacing: -0.03em; }
+        h1 { font-size: clamp(3rem, 8vw, 5.5rem); line-height: 1.1; }
+        h2 { font-size: clamp(2.2rem, 5vw, 3.5rem); margin-bottom: 1.5rem; }
+        .container { max-width: var(--max-width); margin: 0 auto; padding: 0 40px; }
+        
+        /* Nav & Banner */
+        nav { position: fixed; top: 0; width: 100%; background: rgba(250, 249, 248, 0.85); backdrop-filter: blur(12px); z-index: 1000; border-bottom: 1px solid var(--border); }
+        .nav-container { height: 90px; display: flex; justify-content: space-between; align-items: center; }
+        .logo-group { display: flex; align-items: center; gap: 15px; text-decoration: none; color: var(--text); }
+        .logo-img { height: 50px; width: auto; }
+        .logo-text { font-weight: 800; font-size: 1.2rem; text-transform: uppercase; letter-spacing: 2px; }
+        .nav-links a { text-decoration: none; color: var(--text); font-size: 0.85rem; text-transform: uppercase; letter-spacing: 1.5px; font-weight: 600; margin-left: 30px; transition: 0.3s; }
+        .nav-links a:hover { color: var(--brand); }
+        .delivery-banner { background: var(--brand); color: white; padding: 12px; text-align: center; font-weight: 700; font-size: 0.8rem; text-transform: uppercase; letter-spacing: 2px; position: sticky; top: 90px; z-index: 999; }
+
+        /* Hero */
+        .hero { 
+            height: 100vh; 
+            display: flex; 
+            align-items: center; 
+            background: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url('input_file_13.png') center/cover no-repeat; 
+            padding-top: 90px; 
+            color: white; 
+        }
+        .hero-tag { color: var(--brand-light); text-transform: uppercase; letter-spacing: 5px; font-size: 0.85rem; font-weight: 700; margin-bottom: 1.5rem; display: block; }
+        .cta-button { display: inline-block; padding: 20px 45px; background: white; color: var(--text); text-decoration: none; margin-top: 2.5rem; font-weight: 700; text-transform: uppercase; letter-spacing: 2px; transition: 0.3s; }
+        .cta-button:hover { background: var(--brand); color: white; transform: translateY(-3px); }
+
+        /* Sections */
+        .section-header { max-width: 700px; margin-bottom: 60px; }
+        .section { padding: 120px 0; }
+        
+        /* New Arrivals Grid */
+        .arrivals-grid { display: grid; grid-template-columns: repeat(12, 1fr); gap: 30px; }
+        .arrival-item { grid-column: span 4; }
+        .arrival-item.wide { grid-column: span 8; }
+        .img-container { aspect-ratio: 4/5; overflow: hidden; background: #eee; margin-bottom: 20px; position: relative; }
+        .img-container img { width: 100%; height: 100%; object-fit: cover; transition: 0.8s; }
+        .size-tag { position: absolute; bottom: 10px; left: 10px; background: white; padding: 4px 10px; font-size: 0.7rem; font-weight: 700; color: var(--text); }
+        .arrival-item:hover img { transform: scale(1.05); }
+
+        /* Catalog Grid */
+        .catalog-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 30px; }
+        .catalog-card { position: relative; height: 600px; overflow: hidden; background: #000; display: flex; align-items: flex-end; text-decoration: none; }
+        .catalog-card img { position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0.8; transition: 0.6s; }
+        .catalog-card:hover img { transform: scale(1.05); opacity: 0.6; }
+        .catalog-content { position: relative; z-index: 2; padding: 40px; color: white; width: 100%; background: linear-gradient(transparent, rgba(0,0,0,0.9)); }
+        .catalog-content h3 { font-size: 2rem; text-transform: uppercase; margin-bottom: 5px; }
+
+        /* FAQ */
+        .faq-layout { display: grid; grid-template-columns: 1fr 1.2fr; gap: 80px; }
+        .faq-item { padding: 35px 0; border-bottom: 1px solid var(--border); }
+        .faq-item h3 { font-size: 1.2rem; margin-bottom: 10px; }
+        .faq-item p { color: #666; font-size: 0.95rem; }
+
+        /* Contact */
+        .contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 100px; background: var(--text); color: white; padding: 80px; border-radius: 4px; }
+        .info-block { margin-bottom: 40px; }
+        .info-block h4 { color: var(--brand-light); text-transform: uppercase; font-size: 0.8rem; letter-spacing: 2px; margin-bottom: 10px; }
+        .info-block p { font-size: 1.2rem; opacity: 0.9; }
+
+        @media (max-width: 1024px) { 
+            .arrival-item, .arrival-item.wide, .faq-layout, .contact-grid, .catalog-grid { grid-template-columns: 1fr; grid-column: span 12; } 
+            .catalog-card { height: 450px; }
+            .contact-grid { padding: 40px; }
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <div class="container nav-container">
+            <a href="index.html" class="logo-group">
+                <img src="722363273_1910280719671822_74876.png" alt="Logo" class="logo-img">
+                <span class="logo-text">House of SK</span>
+            </a>
+            <div class="nav-links">
+                <a href="#arrivals">Collection</a>
+                <a href="#catalog">Catalog</a>
+                <a href="#faq">Assistance</a>
+                <a href="#contact">Visit Us</a>
+            </div>
+        </div>
+    </nav>
+    <div class="delivery-banner">✨ We Deliver Nationwide — Shop Online or In-Store</div>
+
+    <header class="hero">
+        <div class="container reveal">
+            <span class="hero-tag">Northmead's Premium Boutique</span>
+            <h1>Effortless <br><span style="color: var(--brand-light)">Sophistication.</span></h1>
+            <p style="max-width: 600px; margin-top: 20px;">Premium tailoring and versatile designs for the modern woman. House of SK defines metropolitan chic through curated fabrics and exclusive silhouettes.</p>
+            <a href="#catalog" class="cta-button">Explore Collection</a>
+        </div>
+    </header>
+
+    <section id="arrivals" class="section container">
+        <div class="section-header reveal">
+            <span class="hero-tag" style="color: var(--brand)">Our Collection</span>
+            <h2>New Arrivals</h2>
+            <p>A curated selection of this season's most sought-after pieces, ranging from evening elegance to sharp corporate sets.</p>
+        </div>
+        <div class="arrivals-grid">
+            <div class="arrival-item reveal">
+                <div class="img-container">
+                    <img src="input_file_0.png">
+                    <div class="size-tag">AVAILABLE: XS - XL</div>
+                </div>
+                <h3>The Gala Series</h3>
+                <p>Luxurious floor-length gown with hand-stitched detailing.</p>
+                <p style="color: var(--brand); font-weight: 700; margin-top: 5px;">K950</p>
+            </div>
+            <div class="arrival-item wide reveal">
+                <div class="img-container">
+                    <img src="input_file_5.png">
+                    <div class="size-tag">AVAILABLE: S - XXL</div>
+                </div>
+                <h3>Modern Tailoring</h3>
+                <p>Premium ivory two-piece set designed for the modern executive. Features breathable linen-blend fabric.</p>
+                <p style="color: var(--brand); font-weight: 700; margin-top: 5px;">K1,250</p>
+            </div>
+            <div class="arrival-item reveal">
+                <div class="img-container">
+                    <img src="input_file_12.png">
+                    <div class="size-tag">AVAILABLE: XS - L</div>
+                </div>
+                <h3>Gardenia Gown</h3>
+                <p>Floral-inspired evening wear with a modern architectural twist.</p>
+                <p style="color: var(--brand); font-weight: 700; margin-top: 5px;">K1,100</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Restore Catalog Sections -->
+    <section id="catalog" class="section container">
+        <div class="section-header reveal">
+            <span class="hero-tag" style="color: var(--brand)">Department</span>
+            <h2>Shop by Category</h2>
+        </div>
+        <div class="catalog-grid">
+            <a href="womens.html" class="catalog-card reveal">
+                <img src="input_file_11.png">
+                <div class="catalog-content">
+                    <h3>Women's Wear</h3>
+                    <p>Evening Gowns & Contemporary Two-Piece Sets</p>
+                </div>
+            </a>
+            <a href="mens.html" class="catalog-card reveal">
+                <img src="https://images.unsplash.com/photo-1594932224036-9c2057770bc0?auto=format&fit=crop&q=80&w=1000">
+                <div class="catalog-content">
+                    <h3>Men's Wear</h3>
+                    <p>Bespoke Suiting & Urban Essentials</p>
+                </div>
+            </a>
+        </div>
+    </section>
+
+    <section id="faq" class="section container">
+        <div class="faq-layout">
+            <div class="reveal">
+                <span class="hero-tag" style="color: var(--brand)">Assistance</span>
+                <h2>Common <br>Inquiries</h2>
+            </div>
+            <div class="reveal">
+                <div class="faq-item">
+                    <h3>Where is your shop located?</h3>
+                    <p>Experience luxury in person at Northmead, Shop 199, Lusaka. We are conveniently situated directly opposite Vivom Investment. Visit us for private styling consultations.</p>
+                </div>
+                <div class="faq-item">
+                    <h3>Do you offer delivery across Zambia?</h3>
+                    <p>Yes, we provide reliable nationwide delivery. Whether you are in Kitwe, Ndola, or Livingstone, our logistics partners ensure your premium garments arrive in pristine condition.</p>
+                </div>
+                <div class="faq-item">
+                    <h3>What is your sizing range and tailoring?</h3>
+                    <p>We cater to diverse silhouettes with sizes ranging from XS to XXL. Furthermore, we offer in-house professional tailoring for any adjustments to ensure your House of SK piece fits perfectly.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="contact" class="container reveal" style="padding-bottom: 120px;">
+        <div class="contact-grid">
+            <div>
+                <h2 style="margin-bottom: 40px;">Step Into Luxury</h2>
+                <div class="info-block">
+                    <h4>Visit the Boutique</h4>
+                    <p>Shop 199, Northmead<br>Opposite Vivom Investment<br>Lusaka, Zambia</p>
+                </div>
+                <div class="info-block">
+                    <h4>Direct Contact</h4>
+                    <p>(+260) 965 971 654</p>
+                </div>
+                <div class="info-block">
+                    <h4>Hours</h4>
+                    <p>Mon - Sat: 09:00 - 18:00</p>
+                </div>
+            </div>
+            <div style="background: url('https://images.unsplash.com/photo-1558769132-cb1aea458c5e?auto=format&fit=crop&q=80&w=800') center/cover; min-height: 400px; filter: brightness(0.8);"></div>
+        </div>
+    </section>
+
+    <script>
+        gsap.registerPlugin(ScrollTrigger);
+        document.querySelectorAll('.reveal').forEach((el) => {
+            gsap.from(el, { y: 50, opacity: 0, duration: 1, scrollTrigger: { trigger: el, start: "top 90%" }});
+        });
+    </script>
+</body>
+</html>
